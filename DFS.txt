@@ -1,0 +1,39 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+const int V = 4;
+
+void addEdge(vector<int> adj[], int source, int destination) {
+    adj[source].push_back(destination);
+    adj[destination].push_back(source);
+}
+
+void DFS(vector<int> adj[], vector<bool> &visited, int initial_node) {
+    
+    visited[initial_node] = true;
+    
+    cout<<"Processed node is :- "<<initial_node<<endl;
+    
+    for(int neighbour: adj[initial_node]) {
+        if(!visited[neighbour]) {
+            DFS(adj, visited, neighbour);
+        }
+    }
+}
+
+int main() {
+    
+    vector<int> adj[V];
+    
+    addEdge(adj, 0, 1);
+    addEdge(adj, 0, 2);
+    addEdge(adj, 0, 3);
+    addEdge(adj, 1, 2);
+    
+    int initial_node = 3;
+    vector<bool> visited(V, false);
+    
+    DFS(adj, visited, initial_node);
+    
+    return 0;
+}
